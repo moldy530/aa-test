@@ -17,6 +17,7 @@ export const POST: RequestHandler = async ({
   });
 
   const text = await response.text();
+  console.log(text);
 
   return json(JSON.parse(text), { status: response.status });
 };

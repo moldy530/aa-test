@@ -1,3 +1,14 @@
+<script lang="ts" context="module">
+  const rpcUrl = "/alchemy-rpc/v2";
+
+  const config = createConfig({
+    rpcUrl,
+    chain: polygonAmoy,
+    ssr: true,
+    storage: cookieStorage,
+  });
+</script>
+
 <script lang="ts">
   import { onMount } from "svelte";
 
@@ -26,19 +37,12 @@
   export let data: PageData;
 
   // const clientStore = writable<SmartAccountClient | undefined>(undefined);
-  const rpcUrl = "/alchemy-rpc";
-
-  const config = createConfig({
-    rpcUrl,
-    chain: polygonAmoy,
-    ssr: true,
-    storage: cookieStorage,
-  });
-
   const initialState = cookieToInitialState(config, data.cookie ?? undefined);
   const { onMount: hydrateOnMount } = hydrate(config, initialState);
 
   const logInUsingPasskey: MouseEventHandler<HTMLButtonElement> = async () => {
+    await hydrateOnMount();
+
     const signer = getSigner(config);
     if (!signer) throw "No signer";
 
@@ -53,18 +57,18 @@
   };
 
   onMount(async () => {
-    await hydrateOnMount();
+    console.log("onmount", await hydrateOnMount());
   });
 </script>
 
 <button on:click={logInUsingPasskey}>Log In</button>
 
 <pre>
-{JSON.stringify(getAccount({ type: "MultiOwnerModularAccount" }, config))}
+<!-- {JSON.stringify(getAccount({ type: "MultiOwnerModularAccount" }, config))} -->
 </pre>
 
 <pre>
-{JSON.stringify(getSigner(config))}
+<!-- {JSON.stringify(getSigner(config))} -->
 </pre>
 
 <div id="alchemy-iframe-container"></div>
