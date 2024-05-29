@@ -17,9 +17,11 @@
     cookieToInitialState,
     createAccount,
     createConfig,
+    getAccount,
     getSigner,
     hydrate,
-    watchSignerStatus,
+    watchAccount,
+    watchSignerStatus
   } from "@alchemy/aa-alchemy/config";
 
   import { polygonAmoy } from "@alchemy/aa-core";
@@ -64,11 +66,18 @@
     // we should only create the account once the signer is confirmed to be connected
     watchSignerStatus(config)(async (status) => {
       console.log(status);
-      if (status.isConnected) {
-        console.log(
+      const account = getAccount({ type: "MultiOwnerModularAccount" }, config);
+      if (status.isConnected && (!account || account.status === "DISCONNECTED")) {
+        // this creates an account the first time the signer is connected and the account is not already created
+        console.log("creating account", 
           await createAccount({ type: "MultiOwnerModularAccount" }, config)
         );
       }
+    });
+
+    watchAccount("MultiOwnerModularAccount", config)(account => {
+      // here you would set the account variable if you need it in your UI
+      console.log("got account", account);
     });
   });
 </script>
