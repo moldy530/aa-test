@@ -23,7 +23,7 @@
 	"type": "module",
 	"dependencies": {
 		"@alchemy/aa-accounts": "^3.16.0",
-		"@alchemy/aa-alchemy": "^3.16.1",
+		"@alchemy/aa-alchemy": "^3.16.2",
 		"@alchemy/aa-core": "^3.16.0"
 	}
 }

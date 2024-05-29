@@ -15,7 +15,7 @@
     "@alchemy/aa-core" "^3.16.0"
     viem "2.8.6"
 
-"@alchemy/aa-alchemy@^3.16.1":
+"@alchemy/aa-alchemy@^3.16.2":
   version "3.16.2"
   resolved "https://registry.yarnpkg.com/@alchemy/aa-alchemy/-/aa-alchemy-3.16.2.tgz#7778b3e9565383150907bd14bf14d30809587157"
   integrity sha512-Gt+p8UM5bnCOhDSyO8f1H5lP9mIqC/DohcDGR15GxJGAaKUMqnSPsEBUuwKqLk+THNTuyzkEqoiMcKgBkirCTw==
