@@ -8,14 +8,22 @@ export const POST: RequestHandler = async ({
 }): Promise<Response> => {
   const ALCHEMY_API_KEY = "";
 
-  request.headers.append("authorization", `Bearer ${ALCHEMY_API_KEY}`);
+  console.log({ routes });
+  const url =
+    routes && routes.length > 0
+      ? `https://api.g.alchemy.com/${routes}`
+      : `https://polygon-amoy.g.alchemy.com/v2/${ALCHEMY_API_KEY}`;
 
-  const response = await fetch(`https://polygon-amoy.g.alchemy.com/${routes}`, {
+  console.log(url);
+
+  const response = await fetch(url, {
     method: "POST",
-    headers: request.headers,
+    headers: {
+      authorization: `Bearer ${ALCHEMY_API_KEY}`,
+    },
     body: await request.text(),
   });
-
+  console.log(response.ok);
   const text = await response.text();
   console.log(text);
 
